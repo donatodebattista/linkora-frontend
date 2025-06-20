@@ -14,9 +14,6 @@ export default function RegisterView() {
 
   const { register, watch, handleSubmit, formState: {errors} } = useForm({defaultValues : initialValues});
 
-
-  console.log('Errores: ', errors);
-
   const handleRegister = () => {
     console.log("Desde handleRegister");
   }
