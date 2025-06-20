@@ -3,7 +3,16 @@ import {useForm} from "react-hook-form";
 import ErrorMessage from "../components/ErrorMessage";
 
 export default function RegisterView() {
-  const { register, watch, handleSubmit, formState: {errors} } = useForm();
+
+    const initialValues = {
+    name: '',
+    email: '',
+    handle: '',
+    password: '',
+    passwordConfirmation: ''
+  }
+
+  const { register, watch, handleSubmit, formState: {errors} } = useForm({defaultValues : initialValues});
 
 
   console.log('Errores: ', errors);
@@ -16,7 +25,7 @@ export default function RegisterView() {
     <>
       <form
         onSubmit={handleSubmit(handleRegister)}
-        className="rounded-md space-y-6 p10 p-8 max-w-lg mx-auto w-full bg-white"
+        className="rounded-md space-y-6 p-6 md:p-8 max-w-lg w-full shadow-lg bg-white my-6"
       >
         <div className="grid grid-cols-1">
           <label htmlFor="name" className="text-lg text-zinc-500">
@@ -26,7 +35,7 @@ export default function RegisterView() {
             id="name"
             type="text"
             placeholder="Tu Nombre"
-            className="bg-whitep-3 rounded-md border border-stone-300 placeholder-slate-400 w-full h-12 p-4 outline-none focus:outline-none focus:ring-2 focus:ring-cyan-500"
+            className="bg-white p-3 rounded-md border border-stone-300 placeholder-slate-400 w-full h-12 p-4 outline-none focus:outline-none focus:ring-2 focus:ring-cyan-500"
           
             {...register("name", { required: 'El nombre es obligatorio' })} //react-hook-form
           />
@@ -43,8 +52,9 @@ export default function RegisterView() {
             placeholder="Email de Registro"
             className="bg-whitep-3 rounded-md border border-stone-300 placeholder-slate-400 w-full h-12 p-4 outline-none focus:outline-none focus:ring-2 focus:ring-cyan-500"
           
-            {...register("E-mail", { required: 'El E-mail es obligatorio' })}
+            {...register("email", { required: 'El E-mail es obligatorio' })}
           />
+          {errors.email && ( <ErrorMessage>{errors.email.message}</ErrorMessage>)}
         </div>
         <div className="grid grid-cols-1">
           <label htmlFor="handle" className="text-lg text-zinc-500">
@@ -58,6 +68,7 @@ export default function RegisterView() {
           
             {...register("handle", { required: 'El nombre de Usuario es obligatorio' })}
           />
+          {errors.handle && ( <ErrorMessage>{errors.handle.message}</ErrorMessage>)}
         </div>
         <div className="grid grid-cols-1">
           <label htmlFor="password" className="text-lg text-zinc-500">
@@ -71,23 +82,25 @@ export default function RegisterView() {
           
             {...register("password", { required: 'La contraseña es obligatoria' })}
           />
+          {errors.password && ( <ErrorMessage>{errors.password.message}</ErrorMessage>)}
         </div>
 
         <div className="grid grid-cols-1">
           <label
-            htmlFor="password_confirmation"
+            htmlFor="passwordConfirmation"
             className="text-lg text-zinc-500"
           >
             Repetir contraseña
           </label>
           <input
-            id="password_confirmation"
+            id="passwordConfirmation"
             type="password"
             placeholder="Repetir Contraseña"
             className="bg-whitep-3 rounded-md border border-stone-300 placeholder-slate-400 w-full h-12 p-4 outline-none focus:outline-none focus:ring-2 focus:ring-cyan-500"
           
-            {...register("password_confirmation", { required: 'El nombre es obligatorio' })}
+            {...register("passwordConfirmation", { required: 'La confirmación de contraseña es obligatoria' })}
           />
+          {errors.passwordConfirmation && ( <ErrorMessage>{errors.passwordConfirmation.message}</ErrorMessage>)}
         </div>
 
         <input
