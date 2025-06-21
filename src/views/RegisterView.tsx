@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
 import {useForm} from "react-hook-form";
+import type { RegisterCredentials } from "../types";
 import ErrorMessage from "../components/ErrorMessage";
 
 export default function RegisterView() {
 
-    const initialValues = {
+    const initialValues : RegisterCredentials = {
     name: '',
     email: '',
     handle: '',
@@ -14,11 +15,10 @@ export default function RegisterView() {
 
   const { register, watch, handleSubmit, formState: {errors} } = useForm({defaultValues : initialValues});
 
+  const password = watch("password");
 
-  console.log('Errores: ', errors);
-
-  const handleRegister = () => {
-    console.log("Desde handleRegister");
+  const handleRegister = ( formData : RegisterCredentials) => {
+    console.log(formData);
   }
 
   return (
@@ -35,13 +35,14 @@ export default function RegisterView() {
             id="name"
             type="text"
             placeholder="Tu Nombre"
-            className="bg-white p-3 rounded-md border border-stone-300 placeholder-slate-400 w-full h-12 p-4 outline-none focus:outline-none focus:ring-2 focus:ring-cyan-500"
+            className="bg-white rounded-md border border-stone-300 placeholder-slate-400 w-full h-12 p-4 outline-none focus:outline-none focus:ring-2 focus:ring-cyan-500"
           
             {...register("name", { required: 'El nombre es obligatorio' })} //react-hook-form
           />
                                             {/*Children prop*/}
           {errors.name && ( <ErrorMessage>{errors.name.message}</ErrorMessage>)}
         </div>
+
         <div className="grid grid-cols-1">
           <label htmlFor="email" className="text-lg text-zinc-500">
             E-mail
@@ -52,10 +53,16 @@ export default function RegisterView() {
             placeholder="Email de Registro"
             className="bg-whitep-3 rounded-md border border-stone-300 placeholder-slate-400 w-full h-12 p-4 outline-none focus:outline-none focus:ring-2 focus:ring-cyan-500"
           
-            {...register("email", { required: 'El E-mail es obligatorio' })}
+            {...register("email", { 
+                required: 'El E-mail es obligatorio',
+                pattern: {
+                  value: /\S+@\S+\.\S+/,
+                  message: "E-mail no válido",
+            },})}
           />
           {errors.email && ( <ErrorMessage>{errors.email.message}</ErrorMessage>)}
         </div>
+
         <div className="grid grid-cols-1">
           <label htmlFor="handle" className="text-lg text-zinc-500">
             Nombre de Usuario
@@ -70,6 +77,7 @@ export default function RegisterView() {
           />
           {errors.handle && ( <ErrorMessage>{errors.handle.message}</ErrorMessage>)}
         </div>
+
         <div className="grid grid-cols-1">
           <label htmlFor="password" className="text-lg text-zinc-500">
             Contraseña
@@ -80,7 +88,11 @@ export default function RegisterView() {
             placeholder="Contraseña"
             className="bg-whitep-3 rounded-md border border-stone-300 placeholder-slate-400 w-full h-12 p-4 outline-none focus:outline-none focus:ring-2 focus:ring-cyan-500"
           
-            {...register("password", { required: 'La contraseña es obligatoria' })}
+            {...register("password", { required: 'La contraseña es obligatoria',
+              minLength: {
+                value: 8,
+                message: "La contraseña debe tener al menos 8 caracteres"
+              },})}
           />
           {errors.password && ( <ErrorMessage>{errors.password.message}</ErrorMessage>)}
         </div>
@@ -98,7 +110,9 @@ export default function RegisterView() {
             placeholder="Repetir Contraseña"
             className="bg-whitep-3 rounded-md border border-stone-300 placeholder-slate-400 w-full h-12 p-4 outline-none focus:outline-none focus:ring-2 focus:ring-cyan-500"
           
-            {...register("passwordConfirmation", { required: 'La confirmación de contraseña es obligatoria' })}
+            {...register("passwordConfirmation", { 
+              required: 'La confirmación de contraseña es obligatoria', 
+              validate: value => value === password || "Las contraseñas no coinciden"})}
           />
           {errors.passwordConfirmation && ( <ErrorMessage>{errors.passwordConfirmation.message}</ErrorMessage>)}
         </div>
