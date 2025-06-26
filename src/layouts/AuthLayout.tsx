@@ -1,4 +1,6 @@
 import { Outlet, Link } from "react-router-dom"
+import {Toaster} from 'sonner'
+
 export default function AuthLayout() {
   return (
     <div className="bg-black min-h-screen flex flex-col items-center">
@@ -8,9 +10,11 @@ export default function AuthLayout() {
         <Outlet />
       </div>
       <footer className="text-white text-sm my-6 text-center">
-        <p>Linkora © 2023</p>
+        <p>Linkora © 2025</p>
         <p>Made by <a className="bg-lime-400 rounded px-1 text-black font-bold" href="https://donatodebattista.github.io/">donidev</a></p>
       </footer>
+
+      <Toaster position="top-right"/>
     </div>
   )
 }
