@@ -1,10 +1,25 @@
 import { Link, Outlet } from "react-router-dom";
 import { Toaster } from "sonner";
 import NavigationTabs from '../components/NavigationTabs'
+import { useQuery } from "@tanstack/react-query";
+import { getUser } from "../api/linkoraAPI";
+
+
 
 export default function AppLayout() {
 
+    const { data, error, isLoading, isError } = useQuery({
+        queryKey: ['user'],
+        queryFn: getUser,
+        refetchOnWindowFocus: false,
+        retry: 1,
+    })
 
+    console.log('DATA DE USUARIO: ' , data);
+    console.log('ERROR USE QUERY: ' , error?.message);
+    console.log('LOADING USE QUERY: ' , isLoading);
+    console.log('ES ERROR USE QUERY: ' , isError);
+    
     return (
         <>
             <header className="bg-black py-5">
