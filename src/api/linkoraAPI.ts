@@ -1,11 +1,12 @@
 import { isAxiosError } from "axios";
 import api from "../config/axios";
+import type { User } from "../types";
 
 export async function getUser() {
     const token = localStorage.getItem("AUTH_TOKEN");
 
     try {
-      const { data } = await api.get("/user", {
+      const { data } = await api.get<User>("/user", {
         headers: {
           Authorization: `Bearer ${token}`
         }
