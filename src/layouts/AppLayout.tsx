@@ -19,6 +19,7 @@ export default function AppLayout() {
     console.log('ERROR USE QUERY: ' , error?.message);
     console.log('LOADING USE QUERY: ' , isLoading);
     console.log('ES ERROR USE QUERY: ' , isError);
+    console.log('------------------------------')
     
     return (
         <>
