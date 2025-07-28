@@ -7,7 +7,7 @@ import ErrorMessage from "../components/ErrorMessage";
 import api from "../config/axios";
 
 export default function RegisterView() {
-  const initialValues: RegisterCredentials = {
+  const initialValues : RegisterCredentials = {
     name: "",
     email: "",
     handle: "",
@@ -53,7 +53,7 @@ export default function RegisterView() {
             type="text"
             placeholder="Tu Nombre"
             className="bg-whitep-3 rounded-md border border-stone-300 placeholder-slate-400 w-full h-10 p-4 outline-none focus:outline-none focus:ring-2 focus:ring-cyan-500"
-            {...register("name", { required: "El nombre es obligatorio" })} //react-hook-form
+            {...register("name", { required: "El nombre es obligatorio" })}
           />
           {/*Children prop*/}
           {errors.name && <ErrorMessage>{errors.name.message}</ErrorMessage>}
