@@ -1,9 +1,13 @@
 import NavigationTabs from "./NavigationTabs"
 import { Outlet, Link } from "react-router-dom";
 import { Toaster } from "sonner";
-import type { LinkoraLink, SocialNetwork, User } from "../types";
+import { DndContext, closestCenter } from '@dnd-kit/core'
+import type {DragEndEvent} from '@dnd-kit/core'
+import { SortableContext, verticalListSortingStrategy, arrayMove } from '@dnd-kit/sortable'
+import type {  SocialNetwork, User } from "../types";
 import { useEffect, useState } from "react";
 import LinkLinkora from "./LinkLinkora";
+import { useQueryClient } from "@tanstack/react-query";
 
 type LinkoraProps = {
     data: User
@@ -12,6 +16,32 @@ type LinkoraProps = {
 export default function Linkora({ data }: LinkoraProps) {
     const [enabledLinks, setEnabledLinks] = useState<SocialNetwork[]>(JSON.parse(data.links).filter((item: SocialNetwork) => item.enabled))
 
+
+    const queryClient = useQueryClient()
+    const handleDragEnd = (e: DragEndEvent) => {
+        const {active, over} = e
+
+        if (over && over.id) {
+            const prevIndex = enabledLinks.findIndex(link => link.id === active.id);
+            const newIndex = enabledLinks.findIndex(link => link.id === over.id);
+            const order = arrayMove(enabledLinks, prevIndex, newIndex)
+            
+            setEnabledLinks(order)
+
+            // 
+            const disabledLinks : SocialNetwork[] = JSON.parse(data.links).filter((item: SocialNetwork) => !item.enabled)
+
+            const links = order.concat(disabledLinks) 
+
+            queryClient.setQueryData(['user'], (prevData: User) => {
+                if (!prevData) return prevData;
+                return {
+                    ...prevData,
+                    links: JSON.stringify(links)    
+                }
+            })
+        }
+    }
 
     useEffect(() => {
         setEnabledLinks(JSON.parse(data.links).filter((item: SocialNetwork) => item.enabled))
@@ -62,19 +92,33 @@ export default function Linkora({ data }: LinkoraProps) {
 
                             <p className="text-lg font-semibold text-[#bcbcbc]">{data.description}</p>
 
-                            <div className="my-5">
-                                {
-                                    enabledLinks.map((link: SocialNetwork) => {
-                                        return (
-                                            <LinkLinkora
-                                                key={link.name}
-                                                item={link}
-                                            />
-                                        )
-                                    })
-                                }
+                            <DndContext
+                                collisionDetection={closestCenter}
+                                onDragEnd={handleDragEnd}
+                            >
+                            
+                                <div className="my-5">
+                                    <SortableContext
+                                        strategy={verticalListSortingStrategy}
+                                        items={enabledLinks}
+                                    >
+                                        {  
 
-                            </div>
+                                          enabledLinks.map((link: SocialNetwork) => {
+                                              return (
+                                                  <LinkLinkora
+                                                      key={link.name}
+                                                      item={link}
+                                                  />
+                                              )
+                                          })
+                                        }  
+                                    </SortableContext>
+
+                                </div>
+                            </ DndContext >
+
+                            <p className="text-gray-700 align-bottom text-sm">Arrastra y ordena tus links</p>
                         </div>
                     </div>
                 </main>

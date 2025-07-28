@@ -5,7 +5,7 @@ import { isValidUrl } from "../utils"
 import { toast } from "sonner"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { updateProfile } from "../api/linkoraAPI"
-import type { User, LinkoraLink, SocialNetwork } from "../types"
+import type { User, SocialNetwork } from "../types"
 
 export default function LinkTreeView() {
 
@@ -98,7 +98,7 @@ export default function LinkTreeView() {
             enabled: false
           }
 
-        } else if(link.id > indexToUpdate){
+        } else if(link.id > indexToUpdate && (indexToUpdate !== 0 && link.id === 1)){
           return {
             ...link,
             id: link.id - 1
@@ -134,7 +134,7 @@ export default function LinkTreeView() {
       })}
 
       <button className="bg-cyan-300 hover:bg-cyan-400 p-3 text-slate-800 uppercase font-black text-sm rounded-xs cursor-pointer w-full" 
-              onClick={() => mutate(user)}>Actualizar
+              onClick={() => mutate(queryClient.getQueryData(["user"])!)}>Actualizar
       </button>
       </div>
     </div>

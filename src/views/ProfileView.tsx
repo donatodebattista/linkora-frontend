@@ -73,7 +73,7 @@ export default function ProfileView() {
                 <label htmlFor="handle">Handle:</label>
                 <input
                     type="text"
-                    className="border-none bg-slate-200 rounded-lg p-2"
+                    className="border-none bg-slate-200 rounded-md p-2"
                     placeholder="handle o Nombre de Usuario"
                     {...register("handle", { 
                         required: 'El Handle es obligatorio',
@@ -85,27 +85,21 @@ export default function ProfileView() {
             <div className="grid grid-cols-1 gap-2">
                 <label htmlFor="description">Descripción:</label>
                 <textarea
-                    className="border-none bg-slate-200 rounded-lg p-2"
+                    className="border-none bg-slate-200 rounded-md p-2"
                     {...register("description")}/>
             </div>
 
             <div className="grid grid-cols-1 gap-2">
                 <label htmlFor="image">Imagen:</label>
                 <input
+                    className='bg-slate-200 p-2 rounded-md cursor-pointer'
                     id="image"
                     type="file"
                     name="image"
-                    className="hidden"
                     accept="image/*"
                     onChange={handleImageChange}
                 />
-                    <label
-                        htmlFor="image"
-                        className="border-none bg-slate-200 hover:bg-slate-300 hover:cursor-pointer rounded-lg p-2 text-center cursor-pointer"
-                        style={{ display: 'inline-block' }}
-                    >
-                        Subir archivo
-                    </label>
+
             </div>
 
             <input
