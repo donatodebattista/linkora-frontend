@@ -5,6 +5,7 @@ export type User = {
     _id: string
     description: string
     image: string
+    links: string // JSON string of SocialNetwork[]
 }
 
 export type RegisterCredentials = Pick<User, 'name' | 'email' | 'handle'> & {
@@ -16,3 +17,16 @@ export type LoginCredentials = Pick<User, 'email'> & {
     password: string}
 
 export type ProfileForm = Pick<User, 'handle' | 'description'>
+
+
+//Links
+
+//Para la BDD
+export type SocialNetwork = {
+    id: number
+    name: string
+    url: string
+    enabled: boolean
+}
+
+export type LinkoraLink = Pick<SocialNetwork, 'name' | 'url' | 'enabled'> 

@@ -1,13 +1,21 @@
 import NavigationTabs from "./NavigationTabs"
 import { Outlet, Link } from "react-router-dom";
 import { Toaster } from "sonner";
-import type { User } from "../types";
+import type { LinkoraLink, SocialNetwork, User } from "../types";
+import { useEffect, useState } from "react";
+import LinkLinkora from "./LinkLinkora";
 
 type LinkoraProps = {
-    data : User
+    data: User
 }
 
 export default function Linkora({ data }: LinkoraProps) {
+    const [enabledLinks, setEnabledLinks] = useState<SocialNetwork[]>(JSON.parse(data.links).filter((item: SocialNetwork) => item.enabled))
+
+
+    useEffect(() => {
+        setEnabledLinks(JSON.parse(data.links).filter((item: SocialNetwork) => item.enabled))
+    }, [data])
 
     return (
         <>
@@ -26,7 +34,7 @@ export default function Linkora({ data }: LinkoraProps) {
                     </div>
                 </div>
             </header>
-            <div className="bg-gray-200  min-h-screen py-10">
+            <div className="bg-gray-100  min-h-screen py-10">
                 <main className="mx-auto max-w-5xl p-10 md:p-0">
 
                     <NavigationTabs />
@@ -43,10 +51,30 @@ export default function Linkora({ data }: LinkoraProps) {
                         <div className="flex-1 ">
                             <Outlet />
                         </div>
-                        <div className="w-full md:w-96 bg-[#111111] rounded-lg px-5 py-10 space-y-6 flex flex-col justify-center items-center text-center text-white">
-                            <p className="text-3xl font-bold">{data.handle}</p>
-                            {data.image && <img className="w-full max-w-[300px] rounded-md" src={data.image} alt="Imagen de Perfil" />}
-                            <p className="text-lg">{data.description}</p>
+
+                        {/* Preview section */}
+                        <div className="w-full md:w-96 px-4 pt-15 bg-[#000000] rounded-lg space-y-6 flex flex-col mx-auto text-center text-white">
+                            <p className="text-3xl font-bold">
+                                {data.handle}
+                            </p>
+
+                            {data.image && <img className="w-full self-center max-w-[300px] rounded-md" src={data.image} alt="Imagen de Perfil" />}
+
+                            <p className="text-lg font-semibold text-[#bcbcbc]">{data.description}</p>
+
+                            <div className="my-5">
+                                {
+                                    enabledLinks.map((link: SocialNetwork) => {
+                                        return (
+                                            <LinkLinkora
+                                                key={link.name}
+                                                item={link}
+                                            />
+                                        )
+                                    })
+                                }
+
+                            </div>
                         </div>
                     </div>
                 </main>
