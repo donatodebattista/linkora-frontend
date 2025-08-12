@@ -18,8 +18,7 @@ export type LoginCredentials = Pick<User, 'email'> & {
 
 export type ProfileForm = Pick<User, 'handle' | 'description'>
 
-
-//Links
+export type UserHandle = Pick<User, 'handle' | 'description' | 'name' | 'image' | 'links'>
 
 //Para la BDD
 export type SocialNetwork = {
