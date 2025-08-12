@@ -49,7 +49,7 @@ export default function Linkora({ data }: LinkoraProps) {
 
     return (
         <>
-            <header className="bg-black py-5">
+            <header className="bg-[#101010] py-8">
                 <div className="mx-auto max-w-5xl flex flex-row md:flex-row items-center md:justify-between">
                     <div className="w-full p-5 lg:p-0 md:w-1/3">
                         <img src="/logo.svg" className="w-40 block" />
@@ -71,7 +71,7 @@ export default function Linkora({ data }: LinkoraProps) {
                     <div className="flex justify-end">
                         <Link
                             className="font-semibold text-right text-black text-lg bg-cyan-300 px-4 py-2 rounded-lg hover:bg-cyan-400"
-                            to={''}
+                            to={`/${data.handle}`}
                             target="_blank"
                             rel="noreferrer noopener"
                         >Visitar Mi Perfil: {data.handle}</Link>
@@ -83,7 +83,7 @@ export default function Linkora({ data }: LinkoraProps) {
                         </div>
 
                         {/* Preview section */}
-                        <div className="w-full md:w-96 px-4 pt-15 bg-[#000000] rounded-lg space-y-6 flex flex-col mx-auto text-center text-white">
+                        <div className="w-full md:w-96 px-4 pt-15 pb-10 bg-linear-to-b from-sky-500 to-black rounded-lg space-y-6 flex flex-col mx-auto text-center text-white">
                             <p className="text-3xl font-bold">
                                 {data.handle}
                             </p>
@@ -118,7 +118,6 @@ export default function Linkora({ data }: LinkoraProps) {
                                 </div>
                             </ DndContext >
 
-                            <p className="text-gray-700 align-bottom text-sm">Arrastra y ordena tus links</p>
                         </div>
                     </div>
                 </main>
