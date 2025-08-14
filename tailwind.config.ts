@@ -7,9 +7,11 @@ const config: Config = {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+
+    },
   },
-  plugins: [forms]
+  plugins: [forms],
 }
 
 export default config

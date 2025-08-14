@@ -11,7 +11,7 @@ export default function AppLayout() {
         queryKey: ['user'],
         queryFn: getUser,
         refetchOnWindowFocus: false,
-        retry: 1,
+        retry: 2,
     })
 
     //Restringir rutas de administrador

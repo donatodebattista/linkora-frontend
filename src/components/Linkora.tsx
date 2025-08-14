@@ -1,4 +1,5 @@
 import NavigationTabs from "./NavigationTabs"
+import Header from "./Header";
 import { Outlet, Link } from "react-router-dom";
 import { Toaster } from "sonner";
 import { DndContext, closestCenter } from '@dnd-kit/core'
@@ -49,28 +50,14 @@ export default function Linkora({ data }: LinkoraProps) {
 
     return (
         <>
-            <header className="bg-[#101010] py-8">
-                <div className="mx-auto max-w-5xl flex flex-row md:flex-row items-center md:justify-between">
-                    <div className="w-full p-5 lg:p-0 md:w-1/3">
-                        <img src="/logo.svg" className="w-40 block" />
-                    </div>
-                    <div className="md:w-1/3 md:flex md:justify-end">
-                        <button
-                            className=" bg-cyan-300 p-2 text-slate-800 uppercase font-black text-sm rounded-xs cursor-pointer"
-                            onClick={() => { }}
-                        >
-                            Cerrar Sesión
-                        </button>
-                    </div>
-                </div>
-            </header>
+            <Header/>
             <div className="bg-gray-100  min-h-screen py-10">
                 <main className="mx-auto max-w-5xl p-10 md:p-0">
 
                     <NavigationTabs />
                     <div className="flex justify-end">
                         <Link
-                            className="font-semibold text-right text-black text-lg bg-cyan-300 px-4 py-2 rounded-lg hover:bg-cyan-400"
+                            className="bg-cyan-500 hover:bg-cyan-600 p-3 text-black font-semibold text-sm rounded-sm cursor-pointer text-right px-4 py-2 "
                             to={`/${data.handle}`}
                             target="_blank"
                             rel="noreferrer noopener"

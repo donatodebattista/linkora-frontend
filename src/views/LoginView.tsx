@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { isAxiosError } from "axios";
 import { toast } from "sonner";
@@ -15,10 +15,13 @@ export default function LoginView() {
 
   const {register, handleSubmit, formState: {errors}} = useForm({ defaultValues: initialValues });
 
+  const navigate = useNavigate()
+
   const handleLogin = async (formData : LoginCredentials) => {
     try {
       const { data } = await api.post("/auth/login", formData);
       localStorage.setItem('AUTH_TOKEN', data)
+      navigate('/admin')
 
     } catch (error) {
       if (isAxiosError(error)) {
@@ -26,6 +29,7 @@ export default function LoginView() {
       }
     }
   }
+  
 
   return (
     <>
