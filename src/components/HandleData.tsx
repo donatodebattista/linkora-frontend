@@ -8,7 +8,7 @@ export default function HandleData({ data } : HandleDataProps) {
     const enabledLinks : SocialNetwork[] = JSON.parse(data.links).filter((link : SocialNetwork) => link.enabled === true)
 
   return (
-    <div className="text-white text-center mt-10 mb-10 space-y-4 flex flex-col items-center bg-[#101010] border-1 border-[#333333] px-10 py-10 rounded-lg shadow-2xl/20 shadow-sky-800">
+    <div className="text-white text-center mt-10 mb-10 space-y-4 flex flex-col items-center bg-[#101010] rounded-lg shadow-2xl/20 shadow-sky-800">
         <p className="text-5xl font-black">{data.handle}</p>
         {data.image && <img src={data.image} alt={data.name} className="max-w-[220px] rounded-sm"></img>}
         <p className="font-bold text-sm">{data.description}</p>

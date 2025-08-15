@@ -133,7 +133,7 @@ export default function LinkTreeView() {
         )
       })}
 
-      <button className="bg-cyan-500 hover:bg-cyan-600 p-3 text-white font-semibold text-sm rounded-sm cursor-pointer w-full" 
+      <button className="bg-cyan-400 hover:bg-cyan-500 text-slate-800 p-3 font-semibold text-sm rounded-sm cursor-pointer w-full" 
               onClick={() => mutate(queryClient.getQueryData(["user"])!)}>Actualizar
       </button>
       </div>

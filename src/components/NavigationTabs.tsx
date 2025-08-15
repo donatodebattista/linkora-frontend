@@ -24,7 +24,7 @@ export default function NavigationTabs() {
     return (
         <div className='mb-5'>
 
-            {/* movile */}
+            {/* mobile */}
             <div className="sm:hidden">
                 <label htmlFor="tabs" className="sr-only">
                     Select a tab
