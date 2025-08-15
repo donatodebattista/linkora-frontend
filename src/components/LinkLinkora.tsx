@@ -9,7 +9,7 @@ type LinkoraLinkProps = {
 }
 
 export default function LinkLinkora( {item} : LinkoraLinkProps) {
-  const { attributes, listeners, setNodeRef, transform, transition} = useSortable({
+  const { attributes, listeners, setNodeRef, transform} = useSortable({
     id: item.id})
 
     const style = {

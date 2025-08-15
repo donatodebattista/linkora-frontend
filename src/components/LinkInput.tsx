@@ -1,4 +1,3 @@
-import { useState } from "react"
 import type { LinkoraLink } from "../types"
 import { Switch } from '@headlessui/react'
 import { classNames } from "../utils"
@@ -11,7 +10,6 @@ type LinkoraInputProps = {
 
 export default function LinkInput({ item, onURLChange, onSwitchChange }: LinkoraInputProps) {
 
-  const [enabled, setEnabled] = useState(false)
 
 
   return (
