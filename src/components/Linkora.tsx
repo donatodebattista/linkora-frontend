@@ -57,27 +57,27 @@ export default function Linkora({ data }: LinkoraProps) {
                     <NavigationTabs />
                     <div className="flex justify-end">
                         <Link
-                            className="bg-cyan-400 hover:bg-cyan-500 text-xs md:text-sm text-black font-semibold p-1.5 md:p-2 rounded-xs transition-colors min-w-0 text-center flex-shrink"
+                            className="bg-cyan-400 hover:bg-cyan-500 text-slate-800 font-semibold text-sm p-1.5 md:p-2 rounded-xs min-w-0 text-center flex-shrink"
                             to={`/${data.handle}`}
                             target="_blank"
                             rel="noreferrer noopener"
-                        >Visitar Mi Perfil: {data.handle}</Link>
+                        >Mi Linkora: {data.handle}</Link>
                     </div>
 
-                    <div className="flex flex-col md:flex-row gap-10 mt-10">
+                    <div className="flex flex-col md:flex-row gap-10 mt-4">
                         <div className="flex-1 ">
                             <Outlet />
                         </div>
 
                         {/* Preview section */}
-                        <div className="w-full md:w-96 px-4 pt-15 pb-10 bg-linear-to-b from-sky-500 to-black rounded-lg space-y-6 flex flex-col mx-auto text-center text-white">
+                        <div className="w-full md:w-96 px-4 pt-15 pb-10 bg-linear-to-b from-sky-400 to-black rounded-md space-y-6 flex flex-col mx-auto text-center text-white">
                             <p className="text-3xl font-bold">
                                 {data.handle}
                             </p>
 
                             {data.image && <img className="w-full self-center max-w-[300px] rounded-md" src={data.image} alt="Imagen de Perfil" />}
 
-                            <p className="text-lg font-semibold text-[#bcbcbc]">{data.description}</p>
+                            <p className="text-lg font-semibold text-[#cecece]">{data.description}</p>
 
                             <DndContext
                                 collisionDetection={closestCenter}

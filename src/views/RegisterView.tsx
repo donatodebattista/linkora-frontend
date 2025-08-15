@@ -150,7 +150,7 @@ export default function RegisterView() {
 
         <input
           type="submit"
-          className="bg-cyan-400 p-3 text-s w-full text-black rounded-md font-medium cursor-pointer hover:bg-cyan-600 transition-colors duration-100"
+          className="bg-cyan-400 hover:bg-cyan-500 p-3 text-s w-full text-black rounded-md font-medium cursor-pointer"
           value="Crear Cuenta"
         />
 
