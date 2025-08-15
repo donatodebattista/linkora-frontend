@@ -52,12 +52,12 @@ export default function Linkora({ data }: LinkoraProps) {
         <>
             <Header/>
             <div className="bg-gray-100  min-h-screen py-10">
-                <main className="mx-auto max-w-5xl p-10 md:p-0">
+                <main className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-0">
 
                     <NavigationTabs />
                     <div className="flex justify-end">
                         <Link
-                            className="bg-cyan-500 hover:bg-cyan-600 p-3 text-black font-semibold text-sm rounded-sm cursor-pointer text-right px-4 py-2 "
+                            className="bg-cyan-400 hover:bg-cyan-500 text-xs md:text-sm text-black font-semibold p-1.5 md:p-2 rounded-xs transition-colors min-w-0 text-center flex-shrink"
                             to={`/${data.handle}`}
                             target="_blank"
                             rel="noreferrer noopener"

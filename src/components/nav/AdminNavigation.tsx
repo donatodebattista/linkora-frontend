@@ -16,7 +16,7 @@ export default function AdminNavigation() {
   
   return (
         <button
-            className=" bg-cyan-400 hover:bg-cyan-500 p-2 text-black uppercase font-semibold text-sm rounded-xs cursor-pointer"
+            className="cursor-pointer bg-cyan-400 hover:bg-cyan-500 text-xs md:text-sm text-black font-semibold p-1.5 md:p-2 rounded-xs transition-colors min-w-0 text-center flex-shrink"
             onClick={logout}
         >
             {text}
