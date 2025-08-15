@@ -6,12 +6,12 @@ export default function Header() {
 
     const location = useLocation()
   return (
-          <header className="bg-[#101010] py-8">
-                <div className="mx-auto max-w-5xl flex flex-row md:flex-row items-center md:justify-between">
-                    <Link to='/' className="w-full p-5 lg:p-0 md:w-1/3 sm:w-1/4">
-                        <img src="/logo.svg" className="w-40 block" />
+          <header className="bg-[#101010] py-6">
+                <div className="mx-auto max-w-5xl flex flex-wrap items-center justify-between gap-4 px-4">
+                    <Link to='/' className="w-full flex justify-center md:justify-start md:w-auto">
+                        <img src="/logo.svg" className="w-34 md:w-40 block" />
                     </Link>
-                    <nav className="md:w-1/3 md:flex md:justify-end">
+                    <nav className="w-full flex justify-center md:w-auto md:justify-end">
                         {location.pathname === '/admin' ? <AdminNavigation/> : <HomeNavigation/>}
                     </nav>
                 </div>
