@@ -23,7 +23,7 @@ export default function Router() {
           <Route path='profile' element={<ProfileView />}></Route>
         </Route>
 
-        <Route path='/:handle' element={<AuthLayout /> }>
+        <Route path='/:handle'>
           <Route index={true} element={<HandleView />}></Route>
         </Route>
 
