@@ -81,7 +81,7 @@ export default function LoginView() {
 
         <input
           type="submit"
-          className="bg-cyan-400 hover:bg-cyan-500 p-3 text-s w-full text-black rounded-md font-medium cursor-pointer"
+          className="bg-cyan-400 hover:bg-cyan-500 p-3 text-sm w-full uppercase text-slate-600 rounded-lg font-bold cursor-pointer"
           value="Iniciar Sesión"
         />
 

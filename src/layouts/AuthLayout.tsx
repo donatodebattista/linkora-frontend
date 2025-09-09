@@ -3,8 +3,8 @@ import {Toaster} from 'sonner'
 
 export default function AuthLayout() {
   return (
-    <div className="bg-[#101010] min-h-screen flex flex-col items-center">
-      <Link to={'/'}><img className="w-38 my-6" src="/logo.svg" alt="" /></Link> 
+    <div className="bg-[#000000] min-h-screen flex flex-col items-center">
+      <Link to={'/'}><img className="w-38 mt-10" src="/logo.svg" alt="" /></Link> 
 
       <div className="bg-transparent flex-1 flex flex-col items-center w-full justify-center">
         <Outlet />
