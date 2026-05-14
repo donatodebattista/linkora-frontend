@@ -115,7 +115,6 @@ export default function Linkora({ data }: LinkoraProps) {
                                             })
                                         }
                                     </SortableContext>
-
                                 </div>
                             </ DndContext >
 
