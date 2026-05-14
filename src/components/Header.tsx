@@ -12,7 +12,7 @@ export default function Header() {
                         <img src="/logo.svg" className="w-34 md:w-40 block" />
                     </Link>
                     <nav className="w-full flex flex-row justify-center md:w-auto md:justify-end">
-                        {location.pathname === '/admin' ? <AdminNavigation/> : <HomeNavigation/>}
+                        {location.pathname.startsWith('/admin') ? <AdminNavigation/> : <HomeNavigation/>}
                     </nav>
                 </div>
             </header>
