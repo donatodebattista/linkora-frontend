@@ -6,10 +6,9 @@ import { useForm } from 'react-hook-form'
 import { useQueryClient, useMutation } from '@tanstack/react-query'
 
 export default function ProfileView() {
-    
-    //Recupera datos del usuario que ya estan en cache
+
     const queryClient = useQueryClient()
-    const data : User = queryClient.getQueryData(['user'])!
+    const data: User = queryClient.getQueryData(['user'])!
 
 
     const updateProfileMutation = useMutation({
@@ -21,7 +20,7 @@ export default function ProfileView() {
             toast.success(data)
 
             //Eliminar el cache de usuario para que se vuelva a cargar
-            queryClient.invalidateQueries({queryKey: ['user']})
+            queryClient.invalidateQueries({ queryKey: ['user'] })
         }
     })
 
@@ -43,8 +42,8 @@ export default function ProfileView() {
         }
     })
 
-    const handleImageChange = ( e : React.ChangeEvent<HTMLInputElement> ) => {
-        if(e.target.files) {
+    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files) {
             updateImageMutation.mutate(e.target.files[0])
         }
     }
@@ -60,14 +59,16 @@ export default function ProfileView() {
     }
 
 
-    const {register, handleSubmit, formState: {errors}} = useForm({ defaultValues: {
-        handle: data.handle,
-        description: data.description
-    }});
+    const { register, handleSubmit, formState: { errors } } = useForm({
+        defaultValues: {
+            handle: data.handle,
+            description: data.description
+        }
+    });
 
 
     return (
-        <form 
+        <form
             className="bg-white p-10 rounded-lg space-y-5"
             onSubmit={handleSubmit(handleProfileUpdate)}
         >
@@ -78,18 +79,18 @@ export default function ProfileView() {
                     type="text"
                     className="border-none bg-slate-200 rounded-md p-2"
                     placeholder="handle o Nombre de Usuario"
-                    {...register("handle", { 
+                    {...register("handle", {
                         required: 'El Handle es obligatorio',
-                    })}/>
+                    })} />
 
-                    {errors.handle && <ErrorMessage>{errors.handle.message}</ErrorMessage>}
+                {errors.handle && <ErrorMessage>{errors.handle.message}</ErrorMessage>}
             </div>
 
             <div className="grid grid-cols-1 gap-2">
                 <label htmlFor="description">Descripción:</label>
                 <textarea
                     className="border-none bg-slate-200 rounded-md p-2"
-                    {...register("description")}/>
+                    {...register("description")} />
             </div>
 
             <div className="grid grid-cols-1 gap-2">
