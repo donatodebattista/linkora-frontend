@@ -51,9 +51,12 @@ export default function ProfileView() {
 
     const handleProfileUpdate = (formData : ProfileForm) =>  {
         const user : User = queryClient.getQueryData(['user'])!
-        user.description = formData.description
-        user.handle = formData.handle
-        updateProfileMutation.mutate(user)
+        const updatedUser = {
+            ...user,
+            description: formData.description,
+            handle: formData.handle
+        }
+        updateProfileMutation.mutate(updatedUser)
     }
 
 
