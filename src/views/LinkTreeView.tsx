@@ -47,49 +47,54 @@ export default function LinkTreeView() {
   const links : SocialNetwork[] = JSON.parse(user.links)
 
   const handleSwitchChange = (socialNetwork : string) => {
+    let hasError = false;
     const updatedLinks = LinkoraLinks.map(link => {
       if ( link.name === socialNetwork ) {
-        if( isValidUrl(link.url)) {
-          return {...link, enabled: !link.enabled}
+        if (!link.enabled) {
+          // Intentando habilitar
+          if (isValidUrl(link.url)) {
+            return {...link, enabled: true}
+          } else {
+            toast.error("URL no válida")
+            hasError = true;
+            return link
+          }
         } else {
-          toast.error("URL no válida")
+          // Intentando deshabilitar
+          return {...link, enabled: false}
         }
       }
       return link
     })
+
+    if (hasError) return;
+
     setLinkoraLinks(updatedLinks)
 
-    let updatedItems : SocialNetwork[] = []
     const selectedSocialNetwork = updatedLinks.find(link => link.name === socialNetwork)
+    let updatedItems : SocialNetwork[] = []
 
     if(selectedSocialNetwork?.enabled) {
-      const id = links.filter(link => link.id).length + 1
+      const id = socialNetwork // use socialNetwork name as ID for drag and drop
       if(links.some(link => link.name === socialNetwork)){
         updatedItems = links.map(link => {
           if(link.name === socialNetwork) {
             return {
               ...link,
               enabled: true,
-              id: id
+              id: id as unknown as number // Type casting to satisfy existing interface
             }
-          } else {
-            return link
           }
+          return link
         })
-
       } else {
         const newItem = {
           ...selectedSocialNetwork,
-          id: id
+          id: id as unknown as number
         }
         updatedItems = [...links, newItem]
       }
-
-
-
     } else {
-      const indexToUpdate = links.findIndex(link => link.name === socialNetwork)
-      
       updatedItems = links.map(link => {
         if (link.name === socialNetwork){
           return{
@@ -97,20 +102,10 @@ export default function LinkTreeView() {
             id: 0,
             enabled: false
           }
-
-        } else if(link.id > indexToUpdate && (indexToUpdate !== 0 && link.id === 1)){
-          return {
-            ...link,
-            id: link.id - 1
-          }
-
-        } else {
-          return link
-        } 
+        }
+        return link
       })
     }
-    
-    console.log(updatedItems)
 
     queryClient.setQueryData(["user"], (prevData: User) => {
       return {

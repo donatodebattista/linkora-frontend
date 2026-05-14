@@ -1,14 +1,15 @@
 import NavigationTabs from "./NavigationTabs"
 import Header from "./Header";
 import { Outlet, Link } from "react-router-dom";
-import { Toaster } from "sonner";
+import { Toaster, toast } from "sonner";
 import { DndContext, closestCenter } from '@dnd-kit/core'
-import type {DragEndEvent} from '@dnd-kit/core'
+import type { DragEndEvent } from '@dnd-kit/core'
 import { SortableContext, verticalListSortingStrategy, arrayMove } from '@dnd-kit/sortable'
-import type {  SocialNetwork, User } from "../types";
+import type { SocialNetwork, User } from "../types";
 import { useEffect, useState } from "react";
 import LinkLinkora from "./LinkLinkora";
-import { useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { updateProfile } from "../api/linkoraAPI";
 
 type LinkoraProps = {
     data: User
@@ -19,27 +20,40 @@ export default function Linkora({ data }: LinkoraProps) {
 
 
     const queryClient = useQueryClient()
+
+    const { mutate } = useMutation({
+        mutationFn: updateProfile,
+        onError: (error) => {
+            toast.error(error.message)
+        },
+        onSuccess: () => {
+            toast.success("Orden actualizado")
+        }
+    })
+
     const handleDragEnd = (e: DragEndEvent) => {
-        const {active, over} = e
+        const { active, over } = e
 
         if (over && over.id) {
             const prevIndex = enabledLinks.findIndex(link => link.id === active.id);
             const newIndex = enabledLinks.findIndex(link => link.id === over.id);
             const order = arrayMove(enabledLinks, prevIndex, newIndex)
-            
+
             setEnabledLinks(order)
 
             // 
-            const disabledLinks : SocialNetwork[] = JSON.parse(data.links).filter((item: SocialNetwork) => !item.enabled)
+            const disabledLinks: SocialNetwork[] = JSON.parse(data.links).filter((item: SocialNetwork) => !item.enabled)
 
-            const links = order.concat(disabledLinks) 
+            const links = order.concat(disabledLinks)
 
             queryClient.setQueryData(['user'], (prevData: User) => {
                 if (!prevData) return prevData;
-                return {
+                const updatedData = {
                     ...prevData,
-                    links: JSON.stringify(links)    
+                    links: JSON.stringify(links)
                 }
+                mutate(updatedData)
+                return updatedData
             })
         }
     }
@@ -50,7 +64,7 @@ export default function Linkora({ data }: LinkoraProps) {
 
     return (
         <>
-            <Header/>
+            <Header />
             <div className="bg-gray-100  min-h-screen py-10">
                 <main className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-0">
 
@@ -83,25 +97,24 @@ export default function Linkora({ data }: LinkoraProps) {
                                 collisionDetection={closestCenter}
                                 onDragEnd={handleDragEnd}
                             >
-                            
+
                                 <div className="my-5">
                                     <SortableContext
                                         strategy={verticalListSortingStrategy}
                                         items={enabledLinks}
                                     >
-                                        {  
+                                        {
 
-                                          enabledLinks.map((link: SocialNetwork) => {
-                                              return (
-                                                  <LinkLinkora
-                                                      key={link.name}
-                                                      item={link}
-                                                  />
-                                              )
-                                          })
-                                        }  
+                                            enabledLinks.map((link: SocialNetwork) => {
+                                                return (
+                                                    <LinkLinkora
+                                                        key={link.name}
+                                                        item={link}
+                                                    />
+                                                )
+                                            })
+                                        }
                                     </SortableContext>
-
                                 </div>
                             </ DndContext >
 

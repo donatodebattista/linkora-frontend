@@ -21,7 +21,7 @@ export default function LoginView() {
     try {
       const { data } = await api.post("/auth/login", formData);
       localStorage.setItem('AUTH_TOKEN', data)
-      navigate('/admin')
+      window.location.href = '/admin'
 
     } catch (error) {
       if (isAxiosError(error)) {
