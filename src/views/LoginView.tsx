@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { isAxiosError } from "axios";
 import { toast } from "sonner";
@@ -13,11 +13,9 @@ export default function LoginView() {
     password: "",
   };
 
-  const {register, handleSubmit, formState: {errors}} = useForm({ defaultValues: initialValues });
+  const { register, handleSubmit, formState: { errors } } = useForm({ defaultValues: initialValues });
 
-  const navigate = useNavigate()
-
-  const handleLogin = async (formData : LoginCredentials) => {
+  const handleLogin = async (formData: LoginCredentials) => {
     try {
       const { data } = await api.post("/auth/login", formData);
       localStorage.setItem('AUTH_TOKEN', data)
@@ -29,7 +27,7 @@ export default function LoginView() {
       }
     }
   }
-  
+
 
   return (
     <>
@@ -47,13 +45,14 @@ export default function LoginView() {
             type="email"
             placeholder="Email de Registro"
             className="bg-whitep-3 rounded-md border border-stone-300 placeholder-slate-400 w-full h-12 p-4 outline-none focus:outline-none focus:ring-2 focus:ring-cyan-500"
-          
-            {...register("email", { 
-                required: 'El E-mail es obligatorio',
-                pattern: {
-                  value: /\S+@\S+\.\S+/,
-                  message: "E-mail no válido",
-            },})}
+
+            {...register("email", {
+              required: 'El E-mail es obligatorio',
+              pattern: {
+                value: /\S+@\S+\.\S+/,
+                message: "E-mail no válido",
+              },
+            })}
           />
 
           {errors.email && (
@@ -70,8 +69,8 @@ export default function LoginView() {
             type="password"
             placeholder="Password de Registro"
             className="bg-whitep-3 rounded-md border border-stone-300 placeholder-slate-400 w-full h-12 p-4 outline-none focus:outline-none focus:ring-2 focus:ring-cyan-500"
-          
-            {...register("password", { required: 'La contraseña es obligatoria',})}
+
+            {...register("password", { required: 'La contraseña es obligatoria', })}
           />
 
           {errors.password && (
@@ -86,7 +85,7 @@ export default function LoginView() {
         />
 
         <nav className="text-center font-semibold text-sm">
-          <span className="text-black mr-1">¿Aún no tienes cuenta?</span>          
+          <span className="text-black mr-1">¿Aún no tienes cuenta?</span>
           <Link to="/auth/register" className="text-blue-500 hover:underline">
             Regístrate
           </Link>

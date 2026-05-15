@@ -12,12 +12,12 @@ export default function LinkTreeView() {
   const [LinkoraLinks, setLinkoraLinks] = useState(social)
 
   const queryClient = useQueryClient()
-  const user : User = queryClient.getQueryData(["user"])!
-  
+  const user: User = queryClient.getQueryData(["user"])!
+
 
   const { mutate } = useMutation({
     mutationFn: updateProfile,
-    onError: ( error ) => {
+    onError: (error) => {
       toast.error(error.message)
     },
     onSuccess: () => {
@@ -26,10 +26,10 @@ export default function LinkTreeView() {
   })
 
   useEffect(() => {
-    const updatedData = LinkoraLinks.map( item => {
-      const userLink = JSON.parse(user.links).find((link : SocialNetwork) => link.name === item.name) 
-      if(userLink) {
-        return {...item, url: userLink.url, enabled: userLink.enabled}
+    const updatedData = LinkoraLinks.map(item => {
+      const userLink = JSON.parse(user.links).find((link: SocialNetwork) => link.name === item.name)
+      if (userLink) {
+        return { ...item, url: userLink.url, enabled: userLink.enabled }
       }
       return item
     })
@@ -38,22 +38,38 @@ export default function LinkTreeView() {
 
 
 
-  const handleURLChange = ( e : React.ChangeEvent<HTMLInputElement>) => {
-    const updatedLinks = LinkoraLinks.map(link => link.name === e.target.name ? {...link, url: e.target.value} : link)
+  const links: SocialNetwork[] = JSON.parse(user.links)
+
+  const handleURLChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const updatedLinks = LinkoraLinks.map(link => link.name === e.target.name ? { ...link, url: e.target.value } : link)
     setLinkoraLinks(updatedLinks)
+
+    const updatedItems = links.map(link => {
+      if (link.name === e.target.name) {
+        return {
+          ...link,
+          url: e.target.value
+        }
+      }
+      return link
+    })
+
+    queryClient.setQueryData(["user"], (prevData: User) => {
+      return {
+        ...prevData,
+        links: JSON.stringify(updatedItems)
+      }
+    })
   }
 
-
-  const links : SocialNetwork[] = JSON.parse(user.links)
-
-  const handleSwitchChange = (socialNetwork : string) => {
+  const handleSwitchChange = (socialNetwork: string) => {
     let hasError = false;
     const updatedLinks = LinkoraLinks.map(link => {
-      if ( link.name === socialNetwork ) {
+      if (link.name === socialNetwork) {
         if (!link.enabled) {
           // Intentando habilitar
           if (isValidUrl(link.url)) {
-            return {...link, enabled: true}
+            return { ...link, enabled: true }
           } else {
             toast.error("URL no válida")
             hasError = true;
@@ -61,7 +77,7 @@ export default function LinkTreeView() {
           }
         } else {
           // Intentando deshabilitar
-          return {...link, enabled: false}
+          return { ...link, enabled: false }
         }
       }
       return link
@@ -72,15 +88,16 @@ export default function LinkTreeView() {
     setLinkoraLinks(updatedLinks)
 
     const selectedSocialNetwork = updatedLinks.find(link => link.name === socialNetwork)
-    let updatedItems : SocialNetwork[] = []
+    let updatedItems: SocialNetwork[] = []
 
-    if(selectedSocialNetwork?.enabled) {
+    if (selectedSocialNetwork?.enabled) {
       const id = socialNetwork // use socialNetwork name as ID for drag and drop
-      if(links.some(link => link.name === socialNetwork)){
+      if (links.some(link => link.name === socialNetwork)) {
         updatedItems = links.map(link => {
-          if(link.name === socialNetwork) {
+          if (link.name === socialNetwork) {
             return {
               ...link,
+              url: selectedSocialNetwork.url,
               enabled: true,
               id: id as unknown as number // Type casting to satisfy existing interface
             }
@@ -96,8 +113,8 @@ export default function LinkTreeView() {
       }
     } else {
       updatedItems = links.map(link => {
-        if (link.name === socialNetwork){
-          return{
+        if (link.name === socialNetwork) {
+          return {
             ...link,
             id: 0,
             enabled: false
@@ -114,13 +131,13 @@ export default function LinkTreeView() {
       }
     })
   }
-  
+
   return (
     <div>
       <div>{LinkoraLinks.map(item => {
-        return(
-          <LinkInput 
-            key={item.name} 
+        return (
+          <LinkInput
+            key={item.name}
             item={item}
             onURLChange={handleURLChange}
             onSwitchChange={handleSwitchChange}
@@ -128,9 +145,9 @@ export default function LinkTreeView() {
         )
       })}
 
-      <button className="bg-cyan-400 hover:bg-cyan-500 text-slate-800 p-3 font-semibold text-sm rounded-sm cursor-pointer w-full" 
-              onClick={() => mutate(queryClient.getQueryData(["user"])!)}>Actualizar
-      </button>
+        <button className="bg-cyan-400 hover:bg-cyan-500 text-slate-800 p-3 font-semibold text-sm rounded-sm cursor-pointer w-full"
+          onClick={() => mutate(queryClient.getQueryData(["user"])!)}>Actualizar
+        </button>
       </div>
     </div>
   )
