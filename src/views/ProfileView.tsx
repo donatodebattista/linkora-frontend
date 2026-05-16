@@ -69,15 +69,15 @@ export default function ProfileView() {
 
     return (
         <form
-            className="bg-white p-10 rounded-lg space-y-5"
+            className="bg-zinc-900 border border-zinc-800 p-8 rounded-2xl space-y-6 shadow-xl max-w-2xl mx-auto"
             onSubmit={handleSubmit(handleProfileUpdate)}
         >
-            <legend className="text-2xl text-slate-800 text-center">Editar Información</legend>
+            <legend className="text-2xl text-white font-bold text-center mb-6">Editar Información</legend>
             <div className="grid grid-cols-1 gap-2">
-                <label htmlFor="handle">Handle:</label>
+                <label htmlFor="handle" className="text-zinc-300 font-medium text-sm">Handle:</label>
                 <input
                     type="text"
-                    className="border-none bg-slate-200 rounded-md p-2"
+                    className="bg-zinc-800 text-white placeholder-zinc-500 border border-zinc-700 rounded-lg p-3 focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all"
                     placeholder="handle o Nombre de Usuario"
                     {...register("handle", {
                         required: 'El Handle es obligatorio',
@@ -87,16 +87,16 @@ export default function ProfileView() {
             </div>
 
             <div className="grid grid-cols-1 gap-2">
-                <label htmlFor="description">Descripción:</label>
+                <label htmlFor="description" className="text-zinc-300 font-medium text-sm">Descripción:</label>
                 <textarea
-                    className="border-none bg-slate-200 rounded-md p-2"
+                    className="bg-zinc-800 text-white placeholder-zinc-500 border border-zinc-700 rounded-lg p-3 focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all min-h-[120px] resize-y"
                     {...register("description")} />
             </div>
 
             <div className="grid grid-cols-1 gap-2">
-                <label htmlFor="image">Imagen:</label>
+                <label htmlFor="image" className="text-zinc-300 font-medium text-sm">Imagen de Perfil:</label>
                 <input
-                    className='bg-slate-200 p-2 rounded-md cursor-pointer'
+                    className="bg-zinc-800 text-white border border-zinc-700 rounded-lg p-3 cursor-pointer file:bg-zinc-700 file:border-none file:text-white file:rounded-md file:px-4 file:py-1 file:mr-4 file:font-medium hover:file:bg-zinc-600 file:transition-colors file:cursor-pointer"
                     id="image"
                     type="file"
                     name="image"
@@ -108,7 +108,7 @@ export default function ProfileView() {
 
             <input
                 type="submit"
-                className="bg-cyan-400 hover:bg-cyan-500 text-slate-800 p-3 font-semibold text-sm rounded-sm cursor-pointer w-full"
+                className="bg-cyan-400 hover:bg-cyan-500 text-black p-3 font-semibold text-sm rounded-lg cursor-pointer w-full mt-4 transition-colors shadow-lg"
                 value='Guardar Cambios'
             />
         </form>

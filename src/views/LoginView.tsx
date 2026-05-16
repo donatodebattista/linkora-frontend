@@ -33,18 +33,22 @@ export default function LoginView() {
     <>
       <form
         onSubmit={handleSubmit(handleLogin)}
-        className="rounded-md space-y-6 p-6 md:p-8 max-w-lg w-full shadow-lg bg-white my-6"
+        className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl space-y-6 p-8 md:p-10 max-w-md w-full"
       >
-        <h1 className="text-3xl font-bold text-center">Iniciar Sesión</h1>
-        <div className="grid grid-cols-1">
-          <label htmlFor="email" className="text-lg text-zinc-500">
+        <div className="text-center space-y-2">
+          <h1 className="text-2xl font-bold text-white">Iniciar Sesión</h1>
+          <p className="text-gray-500 text-sm">Accedé a tu panel de Linkora</p>
+        </div>
+
+        <div className="space-y-1.5">
+          <label htmlFor="email" className="text-sm font-medium text-gray-300">
             E-mail
           </label>
           <input
             id="email"
             type="email"
-            placeholder="Email de Registro"
-            className="bg-whitep-3 rounded-md border border-stone-300 placeholder-slate-400 w-full h-12 p-4 outline-none focus:outline-none focus:ring-2 focus:ring-cyan-500"
+            placeholder="tu@email.com"
+            className="bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 w-full h-12 px-4 text-sm outline-none focus:ring-2 focus:ring-cyan-400/50 focus:border-cyan-400/50 transition-all duration-200"
 
             {...register("email", {
               required: 'El E-mail es obligatorio',
@@ -60,15 +64,15 @@ export default function LoginView() {
           )}
         </div>
 
-        <div className="grid grid-cols-1">
-          <label htmlFor="password" className="text-lg text-zinc-500">
-            Password
+        <div className="space-y-1.5">
+          <label htmlFor="password" className="text-sm font-medium text-gray-300">
+            Contraseña
           </label>
           <input
             id="password"
             type="password"
-            placeholder="Password de Registro"
-            className="bg-whitep-3 rounded-md border border-stone-300 placeholder-slate-400 w-full h-12 p-4 outline-none focus:outline-none focus:ring-2 focus:ring-cyan-500"
+            placeholder="••••••••"
+            className="bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 w-full h-12 px-4 text-sm outline-none focus:ring-2 focus:ring-cyan-400/50 focus:border-cyan-400/50 transition-all duration-200"
 
             {...register("password", { required: 'La contraseña es obligatoria', })}
           />
@@ -78,18 +82,19 @@ export default function LoginView() {
           )}
         </div>
 
-        <input
+        <button
           type="submit"
-          className="bg-cyan-400 hover:bg-cyan-500 p-3 text-sm w-full uppercase text-slate-600 rounded-lg font-bold cursor-pointer"
-          value="Iniciar Sesión"
-        />
+          className="w-full bg-gradient-to-r from-cyan-400 to-teal-400 hover:from-cyan-300 hover:to-teal-300 text-gray-900 font-semibold py-3 rounded-xl text-sm transition-all duration-300 cursor-pointer shadow-lg shadow-cyan-400/20 hover:shadow-cyan-400/30"
+        >
+          Iniciar Sesión
+        </button>
 
-        <nav className="text-center font-semibold text-sm">
-          <span className="text-black mr-1">¿Aún no tienes cuenta?</span>
-          <Link to="/auth/register" className="text-blue-500 hover:underline">
+        <p className="text-center text-sm text-gray-500">
+          ¿Aún no tienes cuenta?{' '}
+          <Link to="/auth/register" className="text-cyan-400 hover:text-cyan-300 font-medium transition-colors">
             Regístrate
           </Link>
-        </nav>
+        </p>
       </form>
     </>
   );

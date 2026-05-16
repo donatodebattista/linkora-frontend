@@ -19,8 +19,7 @@ export default function LinkLinkora( {item} : LinkoraLinkProps) {
   return (
 
     <li 
-        className='bg-white text-black px-5 py-2 rounded-lg flex items-center mb-2 cursor-pointer'
-        
+        className='bg-zinc-800/80 backdrop-blur-sm border border-zinc-700 text-white px-5 py-3 rounded-xl flex items-center mb-3 cursor-pointer shadow-sm hover:bg-zinc-700/80 transition-colors'
         // Drag and Drop 
         style= {style}
         {...attributes}

@@ -65,13 +65,13 @@ export default function Linkora({ data }: LinkoraProps) {
     return (
         <>
             <Header />
-            <div className="bg-gray-100  min-h-screen py-10">
+            <div className="bg-[#0a0a0a] min-h-screen py-10">
                 <main className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-0">
 
                     <NavigationTabs />
                     <div className="flex justify-end">
                         <Link
-                            className="bg-cyan-400 hover:bg-cyan-500 text-slate-800 font-semibold text-sm p-1.5 md:p-2 rounded-xs min-w-0 text-center flex-shrink"
+                            className="bg-cyan-400 hover:bg-cyan-500 text-black font-semibold text-sm py-2 px-4 rounded-lg transition-colors"
                             to={`/${data.handle}`}
                             target="_blank"
                             rel="noreferrer noopener"
@@ -84,14 +84,17 @@ export default function Linkora({ data }: LinkoraProps) {
                         </div>
 
                         {/* Preview section */}
-                        <div className="w-full md:w-96 px-4 pt-15 pb-10 bg-linear-to-b from-sky-400 to-black rounded-md space-y-6 flex flex-col mx-auto text-center text-white">
-                            <p className="text-3xl font-bold">
+                        <div className="w-full md:w-96 px-4 pt-15 pb-10 bg-zinc-900/40 border border-zinc-800 rounded-[2.5rem] shadow-[0_0_50px_-12px_rgba(34,211,238,0.15)] relative overflow-hidden backdrop-blur-xl flex flex-col mx-auto text-center text-white ring-1 ring-white/10">
+                            {/* Phone notch mockup */}
+                            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-[#0a0a0a] rounded-b-2xl border-b border-x border-zinc-800 z-10"></div>
+                            
+                            <p className="text-3xl font-black mt-4">
                                 {data.handle}
                             </p>
 
-                            {data.image && <img className="w-full self-center max-w-[300px] rounded-md" src={data.image} alt="Imagen de Perfil" />}
+                            {data.image && <img className="w-full self-center max-w-[150px] rounded-full aspect-square object-cover border-4 border-zinc-800 mt-4 shadow-xl" src={data.image} alt="Imagen de Perfil" />}
 
-                            <p className="text-lg font-semibold text-[#cecece]">{data.description}</p>
+                            <p className="text-lg font-medium text-zinc-400 mt-4 px-4">{data.description}</p>
 
                             <DndContext
                                 collisionDetection={closestCenter}
@@ -122,7 +125,7 @@ export default function Linkora({ data }: LinkoraProps) {
                     </div>
                 </main>
             </div>
-            <Toaster position="top-right" />
+            <Toaster position="top-right" theme="dark" />
         </>
     )
 }

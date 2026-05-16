@@ -6,8 +6,8 @@ export default function Header() {
 
     const location = useLocation()
   return (
-          <header className="bg-[#101010] py-6">
-                <div className="mx-auto max-w-5xl flex flex-wrap items-center justify-between gap-4 px-4">
+          <header className="bg-[#0a0a0a] border-b border-white/5">
+                <div className="mx-auto max-w-5xl flex flex-wrap items-center justify-between gap-4 px-6 py-5">
                     <Link to='/' className="w-full flex justify-center md:justify-start md:w-auto">
                         <img src="/logo.svg" className="w-34 md:w-40 block" />
                     </Link>
