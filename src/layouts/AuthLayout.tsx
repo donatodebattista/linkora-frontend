@@ -3,15 +3,23 @@ import {Toaster} from 'sonner'
 
 export default function AuthLayout() {
   return (
-    <div className="bg-[#000000] min-h-screen flex flex-col items-center">
-      <Link to={'/'}><img className="w-38 mt-10" src="/logo.svg" alt="" /></Link> 
+    <div className="bg-[#0a0a0a] min-h-screen flex flex-col items-center">
+      <Link to={'/'}>
+        <img className="w-38 mt-10" src="/logo.svg" alt="Linkora logo" />
+      </Link> 
 
-      <div className="bg-transparent flex-1 flex flex-col items-center w-full justify-center">
+      <div className="flex-1 flex flex-col items-center w-full justify-center px-4">
         <Outlet />
       </div>
-      <footer className="text-white text-sm my-6 text-center">
-        <p>Linkora © 2025</p>
-        <p>Made by <a className="rounded px-1 text-cyan-400 font-bold" href="https://donatodebattista.github.io/">donidevツ</a></p>
+
+      <footer className="text-gray-600 text-xs my-6 text-center">
+        <p>Linkora © {new Date().getFullYear()}</p>
+        <p className="mt-1">
+          Made by{' '}
+          <a className="text-cyan-500 hover:text-cyan-400 font-medium transition-colors" href="https://donatodebattista.github.io/" target="_blank" rel="noopener noreferrer">
+            donidevツ
+          </a>
+        </p>
       </footer>
 
       <Toaster position="top-right"/>

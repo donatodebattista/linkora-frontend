@@ -32,7 +32,7 @@ export default function NavigationTabs() {
                 <select
                     id="tabs"
                     name="tabs"
-                    className="p-1 block w-full rounded-md border-gray-300 bg-white focus:border-blue-500 focus:ring-blue-500"
+                    className="p-3 block w-full rounded-md border-zinc-800 bg-zinc-900 text-white focus:border-cyan-400 focus:ring-cyan-400"
                     onChange={handleChange}
                 >
                     {tabs.map((tab) => (
@@ -46,7 +46,7 @@ export default function NavigationTabs() {
 
             {/* Desktop */}
             <div className="hidden sm:block">
-                <div className="border-b border-gray-200">
+                <div className="border-b border-zinc-800">
                     <nav className="-mb-px flex space-x-8" aria-label="Tabs">
                         {tabs.map((tab) => (
                             <Link
@@ -54,15 +54,15 @@ export default function NavigationTabs() {
                                 to={tab.href}
                                 className={classNames(
                                     location.pathname === tab.href
-                                        ? 'border-blue-500 text-blue-500'
-                                        : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700',
-                                    'group inline-flex items-center border-b-2 py-4 px-1 text-xl'
+                                        ? 'border-cyan-400 text-cyan-400'
+                                        : 'border-transparent text-zinc-400 hover:border-zinc-700 hover:text-white',
+                                    'group inline-flex items-center border-b-2 py-4 px-1 text-xl font-medium transition-colors'
                                 )}
                             >
                                 <tab.icon
                                     className={classNames(
-                                        location.pathname === tab.href ? 'text-blue-500' : 'text-gray-400 group-hover:text-gray-500',
-                                        '-ml-0.5 mr-2 h-5 w-5'
+                                        location.pathname === tab.href ? 'text-cyan-400' : 'text-zinc-500 group-hover:text-zinc-300',
+                                        '-ml-0.5 mr-2 h-5 w-5 transition-colors'
                                     )}
                                     aria-hidden="true"
                                 />
