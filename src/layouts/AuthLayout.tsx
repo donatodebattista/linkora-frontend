@@ -16,7 +16,7 @@ export default function AuthLayout() {
         <p>Linkora © {new Date().getFullYear()}</p>
         <p className="mt-1">
           Made by{' '}
-          <a className="text-cyan-500 hover:text-cyan-400 font-medium transition-colors" href="https://donatodebattista.github.io/" target="_blank" rel="noopener noreferrer">
+          <a className="text-cyan-500 hover:text-cyan-400 font-medium transition-colors" href="https://donatodebattista.vercel.app/" target="_blank" rel="noopener noreferrer">
             donidevツ
           </a>
         </p>
